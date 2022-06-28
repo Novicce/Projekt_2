@@ -26,7 +26,7 @@ def main():
     x = None
     while x != 'q':  
 
-        while True:  # smyčka NEgenerující 4digit čísla začínající 0
+        while True:  
             number = random.randrange(1234, 9877)
             if len(set(str(number))) == 4:
                 break
