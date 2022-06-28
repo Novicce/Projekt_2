@@ -26,13 +26,17 @@ def main():
     x = None
     while x != 'q':  
 
-        
-        while True:  
-            number = 2017
-            random.randrange(1234, 9877)
+        while True:  # smyčka NEgenerující 4digit čísla začínající 0
+            number = random.randrange(1234, 9877)
             if len(set(str(number))) == 4:
-                print(number)
-            break
+                break
+        print(number)
+        # while True:  
+        #     number = ()
+        #     random.randrange(1234, 9999)
+        #     if len(set(str(number))) == 4:
+        #         print(number)
+        #     break
 
         start = time.time()
         counter = 0
@@ -47,7 +51,7 @@ def main():
         print(f"This game took {round((end - start), 2)} seconds")
         
         # Hrat znovu
-        again = ""
+        again = " "
         while not (again == "Y" or again == "N"):
             again = input("Do you want to play again? (Y/N) ").upper()
         if again == "N":
@@ -104,5 +108,4 @@ def get_num():
 
 main()
 print()
-
 
