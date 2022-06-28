@@ -26,17 +26,19 @@ def main():
     x = None
     while x != 'q':  
 
-        while True:  
-            number = random.randrange(1234, 9877)
-            if len(set(str(number))) == 4:
-                break
-        print(number)
-        # while True:  
-        #     number = ()
-        #     random.randrange(1234, 9999)
+        # while True:
+        #     number = random.randrange(1234, 9877)
         #     if len(set(str(number))) == 4:
-        #         print(number)
-        #     break
+        #         break
+        # print(number)
+        
+        #fixní nastavení pro odzkoušení na konkrétní číslo (generátor lze spustit na řádcích 29-33)
+        while True:  
+            number = 2017    
+            random.randrange(1234, 9999)
+            if len(set(str(number))) == 4:
+                print(number)
+            break
 
         start = time.time()
         counter = 0
@@ -47,6 +49,7 @@ def main():
             counter += 1
         end = time.time()
         
+        print(ODDELOVAC)
         print(f"Correct, you've guessed the right number in {counter} guesses!")
         print(f"This game took {round((end - start), 2)} seconds")
         
@@ -73,17 +76,19 @@ def match(num, number):
             bulls += 1
             cows -= 1
     if bulls == 1:
-        print(bulls, "bull")
-        print(ODDELOVAC)
+        print(">>>",num)
+        print(bulls, "bull",",", cows, "cow")
+        
     else:
-        print(bulls, "bulls")
-        print(ODDELOVAC)
-    if cows == 1:
-        print(cows, "cow" )
-        print(ODDELOVAC)
-    else:
-        print(cows, "cows" )
-        print(ODDELOVAC)
+        print(">>>",num)
+        print(bulls, "bulls",",", cows, "cows")
+        
+    # if cows == 1:
+    #     print(cows, "cow" )
+       
+    # else:
+    #     print(cows, "cows" )
+        
 
 #========================================================
 
@@ -102,10 +107,10 @@ print(ODDELOVAC)
 def get_num():
     while True:
         num = input(f'Enter a number: ')
+        print(ODDELOVAC)
         if len(set(str(num))) == 4 and num.isnumeric():
             return num
 
 
 main()
 print()
-
