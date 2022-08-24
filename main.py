@@ -11,106 +11,100 @@ discord: Novicce #7276
 
 """
 
-
 import random
 import time
-from tokenize import Number
 
 
-ODDELOVAC = ("-" * 49)
+SEP = "-" * 49
 
-#generator cisel =====================================
+
+def intro():
+    print("Hi there!")
+    print(SEP)
+    print("I've generated a random 4 digit number for you.")
+    print("Let's play a bulls and cows game.")
+
+
+def generate_number():
+    while True:
+        number = str(random.randrange(1000, 9999))
+        if len(set(number)) == 4:
+            return number
+
+
+def get_guess():
+    while True:
+        print(SEP)
+        guess = input('Enter a number: ')
+        print(SEP)
+        if len(set(guess)) == 4 and guess.isnumeric():
+            return guess
+        print("The number must have 4 unique digits!")
+        #print(SEP)
+
+
+def match(guess, secret_number):
+    bulls = cows = 0
+    for i in range(len(guess)):
+        if guess[i] == secret_number[i]:
+            bulls += 1
+        elif guess[i] in secret_number:
+            cows += 1
+
+    print(">>>", guess)
+    print(bulls, end="")
+    if bulls == 1:
+        print(" bull, ", end="")
+    else:
+        print(" bulls, ", end="")
+
+    print(cows, end="")
+    if cows == 1:
+        print(" cow")
+    else:
+        print(" cows")
+
+    return bulls == len(guess)
+
+
+def game():
+    secret_number = generate_number()
+    #print("secret number ", secret_number)
+    counter = 0
+
+    while True:
+        guess = get_guess()
+        counter += 1
+        if match(guess, secret_number):
+            return counter
+
 
 def main():
+    intro()
     total_time = game_counter = all_counter = 0
-    x = None
-    while x != 'q':  
 
-        # while True:
-        #     number = random.randrange(1234, 9877)
-        #     if len(set(str(number))) == 4:
-        #         break
-        # print(number)
-        
-        #fixní nastavení pro odzkoušení na konkrétní číslo (generátor lze spustit na řádcích 29-33)
-        while True:  
-            number = 2017    
-            random.randrange(1234, 9999)
-            if len(set(str(number))) == 4:
-                print(number)
-            break
+    playing = True
+    while playing:
+        start_time = time.time()
+        counter = game()
+        end_time = time.time()
 
-        start = time.time()
-        counter = 0
-        num = None
-        while str(num) != str(number):
-            num = get_num()
-            match(num, number)
-            counter += 1
-        end = time.time()
-        
-        print(ODDELOVAC)
+        print(SEP)
         print(f"Correct, you've guessed the right number in {counter} guesses!")
-        print(f"This game took {round((end - start), 2)} seconds")
-        
-        # Hrat znovu
-        again = " "
+        print(f"This game took {round((end_time - start_time), 2)} seconds")
+        print(SEP)
+
+        game_counter += 1
+        total_time += end_time - start_time
+        all_counter += counter
+
+        again = ""
         while not (again == "Y" or again == "N"):
             again = input("Do you want to play again? (Y/N) ").upper()
         if again == "N":
             print("Thank you for playing! Bye bye.")
-            break
-        
-        print()
-        game_counter += 1
-        total_time += (end - start)
-        all_counter += counter
-        
-        
-def match(num, number):
-    bulls = cows = 0
-    for i in range(4):
-        if str(number)[i] in set(str(num)):
-            cows += 1
-        if str(number)[i] == str(num)[i]:
-            bulls += 1
-            cows -= 1
-    if bulls == 1:
-        print(">>>",num)
-        print(bulls, "bull",",", cows, "cow")
-        
-    else:
-        print(">>>",num)
-        print(bulls, "bulls",",", cows, "cows")
-        
-    # if cows == 1:
-    #     print(cows, "cow" )
-       
-    # else:
-    #     print(cows, "cows" )
-        
-
-#========================================================
-
-print(ODDELOVAC)
-print("Hi there!")
-print(ODDELOVAC)
-print(
-    "I've generated a random 4 digit number for you,",
-    "Let's play a bulls and cows game.",
-    sep="\n"
-)
-print(ODDELOVAC)
-
-#========================================================
-
-def get_num():
-    while True:
-        num = input(f'Enter a number: ')
-        print(ODDELOVAC)
-        if len(set(str(num))) == 4 and num.isnumeric():
-            return num
+            playing = False
 
 
-main()
-print()
+if __name__ == "__main__":
+    main()
